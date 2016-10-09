@@ -60,9 +60,21 @@ for i in range(len(lines)):
         #set to probability
     #elif len(ln[8:]) = 8:
         #set to probability   
-
+fr.closed
 
 #for j in range(len(tempParent)):
     # check if node has parent
     # set parent for node and go to parent node and set child node
+
+#Take in second script
+print "Take in query"
+fs = open(inputQ)
+lines2 = fs.readlines()
+querry = lines2[0].rstrip('\n')
+querry = querry.split(',')
+print querry
+
+#run querry
+
+
 
