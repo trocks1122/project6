@@ -25,7 +25,7 @@ class Node(object):
 	cpt = []
 
 	def add_parent(self, parent):
-		if len(parents) < 2:
+		if len(parents) <= 2:
 			parents.append(parent)
 		else:
 			print "only 2 parents allowed"
