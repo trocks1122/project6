@@ -46,6 +46,11 @@ class Node(object):
 
 		return cpt[index]
 
+	    def print_node(node):
+        print "Name: " + name
+        print "Parents" + node.parents[0] + node.parents[1]
+
+
 class Tree(object):
     #a tree is a list of parents and their children and their children ect
 
