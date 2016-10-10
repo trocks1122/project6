@@ -119,4 +119,19 @@ for m in range(len(bayNet)):
 #run querry
 print "Run querry..."
 
+#rejection sampling
+def rejection sampling:
+    print "Begin Rejection Sampling..."
+    
+    #find querry value
+    #check for parents
+    #return probabilty
+
+
+#Likelyhood-weighing
+def likeWeigh:
+    print "Begin likelyhood Weighing..."
+    #assume ecidence is true, then add weight to nodes
+
+
 
