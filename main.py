@@ -8,6 +8,8 @@ import numpy as np
 import csv
 import sys
 import re
+import os.path
+from node import Node
 
 #from StringIO import StringIO
 
@@ -28,7 +30,7 @@ for i in range(len(lines)):
     
     #rearrange input into data
     ln = lines[i].rstrip('\n')
-    print ln
+    #print ln
     ln1 = ln.split(': ')
     ln1a = ln1[1].split('] [')
     ln2 = []
@@ -44,14 +46,11 @@ for i in range(len(lines)):
     for j in range(len(temp2)):
         temp1.append(float(temp2[j]))
     ln2[2] = temp1
-    print ln2
+    #print ln2
     #create node
-    
-
-
-
+    bayNet.append(Node(ln2[0],ln2[2]))
     #check parent
-    #tempParent.append(2)
+    tempParent.append(ln2[1])
 
     #check for 2, 4, or 8 list
     #if len(ln[8:]) = 2:
@@ -61,10 +60,50 @@ for i in range(len(lines)):
     #elif len(ln[8:]) = 8:
         #set to probability   
 fr.closed
+#print bayNet
+#print tempParent
 
-#for j in range(len(tempParent)):
+ # set parent for node and go to parent node and set child node
+for j in range(len(tempParent)):
     # check if node has parent
-    # set parent for node and go to parent node and set child node
+    tempP = tempParent[j]
+    #print tempP
+    tempN = bayNet[j]
+    parentA = []
+    if tempP:
+        if len(tempP) == 2:
+            tempP1 = tempP[0]
+            tempP2 = tempP[1]
+            #print tempP1
+            #print tempP2
+            for k in range(len(bayNet)):
+               #print bayNet[k].name
+               if bayNet[k].name == tempP1 or bayNet[k].name == tempP2: 
+                   #Parent node found
+                   #print "found parent"
+                   bayNet[k].add_child(tempN)
+                   parentA.append(bayNet[k])
+                   #print len(parentA)
+            #print parentA[0].name
+            #print parentA[1].name
+            bayNet[j].add_parent(parentA[0])
+            bayNet[j].add_parent(parentA[1])
+        if len(tempP) == 1:
+            tempP1 = tempP[0]
+            if tempP1 != '':
+                for k in range(len(bayNet)):
+                    if bayNet[k].name == tempP1: 
+                        #Parent node found
+                        bayNet[k].add_child(tempN)
+                        parentA.append(bayNet[k])
+                bayNet[j].add_parent(parentA[0])
+
+#Test node
+print "Beginning Test of Setup"
+for l in range(len(bayNet)):
+    #print bayNet[l]
+    #print bayNet[l].name
+    bayNet[l].print_node()
 
 #Take in second script
 print "Take in query"
@@ -73,7 +112,7 @@ lines2 = fs.readlines()
 querry = lines2[0].rstrip('\n')
 querry = querry.split(',')
 print querry
-
+fs.closed
 #run querry
 
 
