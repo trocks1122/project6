@@ -9,7 +9,7 @@ import math
 NODE_FALSE = 0
 NODE_TRUE = 1
 IS_QUERY = 2
-UNKOWN = 4
+UNKNOWN = 4
 
 
 class Node(object):
@@ -20,15 +20,14 @@ class Node(object):
     #name = ""
     #parents = [] #if we do option A make length 2
     #children = []
-    #truthTable = []
     #cpt = []
 
     def __init__(self, name, probability):
         self.name = name
         self.parents = []
         self.children = []
-        self.truthTable = probability
-        self.cpt = []	
+        self.cpt = probability
+        self.queryV = UNKNOWN	
 
     def add_parent(self, parent):
         self.parents.append(parent)
@@ -38,8 +37,8 @@ class Node(object):
         self.children.append(child)
         #print child
 
-    def set_cpt(self, new_cpt):
-        cpt = new_cpt
+    #def set_cpt(self, new_cpt):
+    #    cpt = new_cpt
 
     def probGivenParent(self, given_parents):
         index = 0
@@ -47,6 +46,17 @@ class Node(object):
             parent_index = self.parents.index(n)
             index = index ^ (1 << parent_index)
         return cpt[index]
+    
+    def setQuery(self, query):
+        if query == '?' or query == 'q':
+            self.queryV = IS_QUERY
+        if query == '-':
+            self.queryV = UNKNOWN
+        if query == 'f':
+            self.queryV = NODE_FALSE
+        if query == 't':
+            self.queryV = NODE_TRUE
+
     def print_node(self):
         print "Node==============="
         print "Name: " + self.name

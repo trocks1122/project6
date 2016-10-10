@@ -106,14 +106,17 @@ for l in range(len(bayNet)):
     bayNet[l].print_node()
 
 #Take in second script
-print "Take in query"
+print "Take in query..."
 fs = open(inputQ)
 lines2 = fs.readlines()
-querry = lines2[0].rstrip('\n')
-querry = querry.split(',')
-print querry
+query = lines2[0].rstrip('\n')
+query = query.split(',')
 fs.closed
-#run querry
+print query
+for m in range(len(bayNet)):
+    bayNet[m].setQuery(query[m])
 
+#run querry
+print "Run querry..."
 
 
