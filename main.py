@@ -9,6 +9,7 @@ import csv
 import sys
 import re
 import os.path
+import random
 import networkx as nx
 from node import Node
 
