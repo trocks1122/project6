@@ -9,6 +9,7 @@ import csv
 import sys
 import re
 import os.path
+import networkx as nx
 from node import Node
 
 #from StringIO import StringIO
@@ -119,14 +120,58 @@ for m in range(len(bayNet)):
 #run querry
 print "Run querry..."
 
+def past_sample(dist):
+    #returns sample from past distribution
+    t = [dist.node[s]['obj'] for s in nx.topological_sort(dist)]
+    assigns = {}
+
+    j = 0
+    for node in t:
+        rand = random.uniform(0,1)
+        parent_prob = rand
+
+        if len(node.parents()) > 0: #probability given parents
+            parent_prob = prob_if_parents(node, assigns)
+        else:  #given no parents
+            parent_prob = node.cpt[0][0]
+
+        assigns[node.name] = True if r < p else False
+        j += 1
+    return assigns
+
+        
+def prob_if_parents(node, assigns):
+    parent_names = [n.name for n in node.parents()]
+    parent_prob = [assigns[p] for p in parent_names if p in assigns]
+
+    for row in node.cpt:
+        is_match = True
+        for j in xrange(0, len(parent_prob)):
+            if row[j] != parent_prob[i]:
+                is_match = False
+        if is_match:
+            p = row[-1]
+
+    return p
+
+
+
+
 #rejection sampling
-def rejection sampling:
+def rejection_sampling(X, e, b, count):
     print "Begin Rejection Sampling..."
     
-    #find querry value
-    #check for parents
-    #return probabilty
+    n = {True: 0, False: 0}
 
+    for i in xrange(0, count):
+
+        ls = past_sample(b)
+
+        if consistent(ls, e):
+            h = ls[X]
+            n[h] += 1
+    n = normalize(n)
+    return n
 
 #Likelyhood-weighing
 def likeWeigh:
