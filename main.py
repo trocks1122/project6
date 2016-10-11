@@ -140,6 +140,31 @@ def past_sample(dist):
         j += 1
     return assigns
 
+
+def weighted(dist, e):
+    t = [dist.node[s]['obj'] for s in nx.topological_sort(dist)]
+    assigns = {}
+    x = 0  
+    weight = 1
+
+    for node in t:
+        rand = random.uniform(0,1)
+        parent_prob = rand
+
+        if len(node.parents()) > 0: #probability given parents
+            parent_prob = prob_if_parents(node, assigns)
+        else:  #given no parents
+            parent_prob = node.cpt[0][0]
+        if node.name in e:
+            weight *= (1 - parent_prob) if e[node.name] is False else parent_prob
+        else:
+            assigns[node.name] = True if rand < parent_prob else False
+        x += 0 
+    return assigns, weight
+
+
+
+
         
 def prob_if_parents(node, assigns):
     parent_names = [n.name for n in node.parents()]
@@ -159,7 +184,7 @@ def prob_if_parents(node, assigns):
 
 
 #rejection sampling
-def rejection_sampling(X, e, b, count):
+def rejection_sampling(x, e, b, count):
     print "Begin Rejection Sampling..."
     
     n = {True: 0, False: 0}
@@ -169,14 +194,27 @@ def rejection_sampling(X, e, b, count):
         ls = past_sample(b)
 
         if consistent(ls, e):
-            h = ls[X]
+            h = ls[x]
             n[h] += 1
-    n = normalize(n)
-    return n
+    return normalize(n)
+
 
 #Likelyhood-weighing
-def likeWeigh:
+def likeWeigh(x, e, b, count):
     print "Begin likelyhood Weighing..."
+    n = {True: 0, False: 0}
+
+    for i in xrange(0, count):
+        y, weight = weighted(b, e)
+        
+        num = y[x]
+        n[num] += weight
+
+    return normalize(n)
+
+
+
+
     #assume ecidence is true, then add weight to nodes
 
 
