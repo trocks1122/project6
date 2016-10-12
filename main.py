@@ -255,7 +255,7 @@ def likeWeigh(x, e, b, count):
 
 #qe = get_query_evidence(bayNet)
 print likeWeigh(qe['X'], qe['e'],bayNet,int(inputA))
-#NOTE, likeWeigh has error from prob_if_parents
+
 
     #assume ecidence is true, then add weight to nodes
 
