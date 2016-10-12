@@ -149,6 +149,8 @@ def weighted(dist, e):
     for node in t:
         rand = random.uniform(0,1)
         parent_prob = rand
+        int(parent_prob)
+        int(weight)
 
         if len(node.parents) > 0: #probability given parents
             parent_prob = prob_if_parents(node, assigns)
