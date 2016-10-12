@@ -182,7 +182,7 @@ def prob_if_parents(node, assigns):
 
 
 def consistent(x, e):
-    consistent = True
+    Consistent = True
     for num in x:
         if num in e and x[num] != e[num]:
             consistent = False
