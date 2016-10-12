@@ -150,8 +150,7 @@ def weighted(dist, e):
     for node in t:
         rand = random.uniform(0,1)
         parent_prob = rand
-        #int(parent_prob)
-        #int(weight)
+
 
         if len(node.parents) > 0: #probability given parents
             parent_prob = prob_if_parents(node, assigns)
@@ -184,7 +183,9 @@ def prob_if_parents(node, assigns):
                 is_match = False
         if is_match:
             p = row[-1]
-    #print "P: " + str(p)
+        else:
+            p = 7
+    print "P: " + str(p)
     return p
 
 
