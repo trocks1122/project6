@@ -130,7 +130,6 @@ def past_sample(dist):
     for node in t:
         rand = random.uniform(0,1)
         parent_prob = rand
-        print node.name
         if len(node.parents) > 0: #probability given parents
             parent_prob = prob_if_parents(node, assigns)
         else:  #given no parents
