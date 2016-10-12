@@ -134,7 +134,7 @@ def past_sample(dist):
         if len(node.parents) > 0: #probability given parents
             parent_prob = prob_if_parents(node, assigns)
         else:  #given no parents
-            parent_prob = node.cpt[0][0]
+            parent_prob = node.cpt[0]
 
         assigns[node.name] = True if r < p else False
         j += 1
