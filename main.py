@@ -1,6 +1,6 @@
 #Project 6
 #Alex and Trevor
-
+#Reference: https://github.com/WPI-CS4341/Bayesian-Networks
 #Imports
 import math
 import random
@@ -10,7 +10,6 @@ import sys
 import re
 import os.path
 import random
-import networkx as nx
 from node import Node
 
 #from StringIO import StringIO
@@ -123,7 +122,7 @@ print "Run querry..."
 
 def past_sample(dist):
     #returns sample from past distribution
-    t = dist#[dist[s] for s in nx.topological_sort(dist)]
+    t = dist
     assigns = {}
 
     j = 0
@@ -141,11 +140,11 @@ def past_sample(dist):
 
 
 def weighted(dist, e):
-    t = dist#.node[s]['obj'] for s in nx.topological_sort(dist)]
+    t = dist
     assigns = {}
     x = 0  
     weight = 1
-
+    v = None
     for node in t:
         rand = random.uniform(0,1)
         parent_prob = rand
@@ -154,12 +153,12 @@ def weighted(dist, e):
 
         if len(node.parents) > 0: #probability given parents
             parent_prob = prob_if_parents(node, assigns)
-            print "Parent prob: " + str(parent_prob)
+            #print "Parent prob: " + str(parent_prob)
         else:  #given no parents
             parent_prob = node.cpt[0]
             #print "Parent prob: " + str(parent_prob)
         if node.name in e:
-            print "e[node.name]: " + str(e[node.name])
+            #print "e[node.name]: " + str(e[node.name])
             #print "Parent prob: " + str(parent_prob)
             weight *= (1 - parent_prob) if e[node.name] is False else parent_prob
         else:
@@ -175,7 +174,7 @@ def prob_if_parents(node, assigns):
     parent_names = [n.name for n in node.parents]
     parent_prob = [assigns[p] for p in parent_names if p in assigns]
     row = node.cpt
-    print "row" + str(row)
+    #print "row" + str(row)
     for r in range(len(node.cpt)):    
         is_match = True
         for j in xrange(0, len(parent_prob)):
@@ -183,7 +182,7 @@ def prob_if_parents(node, assigns):
                 is_match = False
         if is_match:
             p = row[-1]
-    print "P: " + str(p)
+    #print "P: " + str(p)
     return p
 
 
@@ -252,8 +251,8 @@ def likeWeigh(x, e, b, count):
     return normalize(n)
 
 #qe = get_query_evidence(bayNet)
-print likeWeigh(qe['X'], qe['e'],bayNet,int(inputA))
-
+#print likeWeigh(qe['X'], qe['e'],bayNet,int(inputA))
+#NOTE, likeWeigh has error from prob_if_parents
 
     #assume ecidence is true, then add weight to nodes
 
