@@ -141,7 +141,7 @@ def past_sample(dist):
 
 
 def weighted(dist, e):
-    t = [dist.node[s]['obj'] for s in nx.topological_sort(dist)]
+    t = dist#.node[s]['obj'] for s in nx.topological_sort(dist)]
     assigns = {}
     x = 0  
     weight = 1
@@ -150,7 +150,7 @@ def weighted(dist, e):
         rand = random.uniform(0,1)
         parent_prob = rand
 
-        if len(node.parents()) > 0: #probability given parents
+        if len(node.parents) > 0: #probability given parents
             parent_prob = prob_if_parents(node, assigns)
         else:  #given no parents
             parent_prob = node.cpt[0]
@@ -244,7 +244,7 @@ def likeWeigh(x, e, b, count):
 
     return normalize(n)
 
-
+print likeWeigh(qe['X'], qe['e'],bayNet,int(inputA))
 
 
     #assume ecidence is true, then add weight to nodes
