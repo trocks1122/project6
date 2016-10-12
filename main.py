@@ -154,7 +154,7 @@ def weighted(dist, e):
         if len(node.parents()) > 0: #probability given parents
             parent_prob = prob_if_parents(node, assigns)
         else:  #given no parents
-            parent_prob = node.cpt[0][0]
+            parent_prob = node.cpt[0]
         if node.name in e:
             weight *= (1 - parent_prob) if e[node.name] is False else parent_prob
         else:
