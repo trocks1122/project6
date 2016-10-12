@@ -149,16 +149,18 @@ def weighted(dist, e):
     for node in t:
         rand = random.uniform(0,1)
         parent_prob = rand
-        int(parent_prob)
-        int(weight)
+        #int(parent_prob)
+        #int(weight)
 
         if len(node.parents) > 0: #probability given parents
             parent_prob = prob_if_parents(node, assigns)
+            print "Parent prob: " + str(parent_prob)
         else:  #given no parents
             parent_prob = node.cpt[0]
+            #print "Parent prob: " + str(parent_prob)
         if node.name in e:
-            print "Parent prob: " + str(parent_prob)
             print "e[node.name]: " + str(e[node.name])
+            #print "Parent prob: " + str(parent_prob)
             weight *= (1 - parent_prob) if e[node.name] is False else parent_prob
         else:
             assigns[node.name] = True if rand < parent_prob else False
@@ -173,6 +175,7 @@ def prob_if_parents(node, assigns):
     parent_names = [n.name for n in node.parents]
     parent_prob = [assigns[p] for p in parent_names if p in assigns]
     row = node.cpt
+    print "row" + str(row)
     for r in range(len(node.cpt)):    
         is_match = True
         for j in xrange(0, len(parent_prob)):
@@ -180,7 +183,7 @@ def prob_if_parents(node, assigns):
                 is_match = False
         if is_match:
             p = row[-1]
-
+    print "P: " + str(p)
     return p
 
 
@@ -248,6 +251,7 @@ def likeWeigh(x, e, b, count):
 
     return normalize(n)
 
+#qe = get_query_evidence(bayNet)
 print likeWeigh(qe['X'], qe['e'],bayNet,int(inputA))
 
 
