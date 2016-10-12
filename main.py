@@ -180,6 +180,15 @@ def prob_if_parents(node, assigns):
 
     return p
 
+
+def consistent(x, e):
+    consistent = True
+    for num in x:
+        if num in e and x[num] != e[num]:
+            consistent = False
+    return Consistent
+
+
 def get_query_evidence(bn):
     """
     Takes in a network and returns a dictionary of the query variable
