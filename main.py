@@ -172,6 +172,7 @@ def weighted(dist, e):
 
         
 def prob_if_parents(node, assigns):
+    rand = random.uniform(0,1)
     parent_names = [n.name for n in node.parents]
     parent_prob = [assigns[p] for p in parent_names if p in assigns]
     row = node.cpt
@@ -184,7 +185,7 @@ def prob_if_parents(node, assigns):
         if is_match:
             p = row[-1]
         else:
-            p = 7
+            p = rand
     #print "P: " + str(p)
     return p
 
