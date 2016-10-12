@@ -136,7 +136,7 @@ def past_sample(dist):
         else:  #given no parents
             parent_prob = node.cpt[0]
 
-        assigns[node.name] = True if r < p else False
+        assigns[node.name] = True if rand < parent_prob else False
         j += 1
     return assigns
 
@@ -169,11 +169,11 @@ def weighted(dist, e):
 def prob_if_parents(node, assigns):
     parent_names = [n.name for n in node.parents]
     parent_prob = [assigns[p] for p in parent_names if p in assigns]
-
-    for row in node.cpt:
+    row = node.cpt
+    for r in range(len(node.cpt)):    
         is_match = True
         for j in xrange(0, len(parent_prob)):
-            if row[j] != parent_prob[i]:
+            if row[r] != parent_prob[j]:
                 is_match = False
         if is_match:
             p = row[-1]
