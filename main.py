@@ -157,6 +157,8 @@ def weighted(dist, e):
         else:  #given no parents
             parent_prob = node.cpt[0]
         if node.name in e:
+            print "Parent prob: " + str(parent_prob)
+            print "e[node.name]: " + str(e[node.name])
             weight *= (1 - parent_prob) if e[node.name] is False else parent_prob
         else:
             assigns[node.name] = True if rand < parent_prob else False
