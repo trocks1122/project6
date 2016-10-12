@@ -188,6 +188,9 @@ def consistent(x, e):
             consistent = False
     return Consistent
 
+def normalize(norm):
+    return {h: float(j) / sum(norm.values()) for h, j.iteritems()} if sum(norm.values()) > 0 else None
+
 
 def get_query_evidence(bn):
     """
