@@ -131,11 +131,11 @@ def past_sample(dist):
         parent_prob = rand
         if len(node.parents) > 0: #probability given parents
             parent_prob = prob_if_parents(node, assigns)
-            print "if"
+            #print "if"
         else:  #given no parents
             parent_prob = node.cpt[0]
-            print "else"
-        print "parent_prob: " +str(parent_prob)
+            #print "else"
+        #print "parent_prob: " +str(parent_prob)
         assigns[node.name] = True if rand < parent_prob else False
         j += 1
     return assigns
@@ -185,7 +185,7 @@ def prob_if_parents(node, assigns):
             p = row[-1]
         else:
             p = 7
-    print "P: " + str(p)
+    #print "P: " + str(p)
     return p
 
 
@@ -254,7 +254,7 @@ def likeWeigh(x, e, b, count):
     return normalize(n)
 
 #qe = get_query_evidence(bayNet)
-#print likeWeigh(qe['X'], qe['e'],bayNet,int(inputA))
+print likeWeigh(qe['X'], qe['e'],bayNet,int(inputA))
 #NOTE, likeWeigh has error from prob_if_parents
 
     #assume ecidence is true, then add weight to nodes
