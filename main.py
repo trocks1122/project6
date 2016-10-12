@@ -131,9 +131,11 @@ def past_sample(dist):
         parent_prob = rand
         if len(node.parents) > 0: #probability given parents
             parent_prob = prob_if_parents(node, assigns)
+            print "if"
         else:  #given no parents
             parent_prob = node.cpt[0]
-
+            print "else"
+        print "parent_prob: " +str(parent_prob)
         assigns[node.name] = True if rand < parent_prob else False
         j += 1
     return assigns
