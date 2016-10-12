@@ -131,7 +131,7 @@ def past_sample(dist):
         rand = random.uniform(0,1)
         parent_prob = rand
         print node.name
-        if len(node.parents()) > 0: #probability given parents
+        if len(node.parents) > 0: #probability given parents
             parent_prob = prob_if_parents(node, assigns)
         else:  #given no parents
             parent_prob = node.cpt[0][0]
@@ -167,7 +167,7 @@ def weighted(dist, e):
 
         
 def prob_if_parents(node, assigns):
-    parent_names = [n.name for n in node.parents()]
+    parent_names = [n.name for n in node.parents]
     parent_prob = [assigns[p] for p in parent_names if p in assigns]
 
     for row in node.cpt:
