@@ -123,14 +123,14 @@ print "Run querry..."
 
 def past_sample(dist):
     #returns sample from past distribution
-    t = [dist.node[s]['obj'] for s in nx.topological_sort(dist)]
+    t = dist#[dist[s] for s in nx.topological_sort(dist)]
     assigns = {}
 
     j = 0
     for node in t:
         rand = random.uniform(0,1)
         parent_prob = rand
-
+        print node.name
         if len(node.parents()) > 0: #probability given parents
             parent_prob = prob_if_parents(node, assigns)
         else:  #given no parents
@@ -180,7 +180,24 @@ def prob_if_parents(node, assigns):
 
     return p
 
-
+def get_query_evidence(bn):
+    """
+    Takes in a network and returns a dictionary of the query variable
+    + evidence nodes, mapping their names to their values
+    (i.e. {X: <query_var>, e: {<evid_var>: <evid_value})
+    """
+    a = {}
+    e = {}
+    for n in range(len(bn)):
+        node = bn[n]
+        if node.queryV == 1:
+            e[node.name] = True
+        elif node.queryV == 0:
+            e[node.name] = False
+        elif node.queryV == 2:
+            a['X'] = node.name
+        a['e'] = e
+    return a
 
 
 #rejection sampling
@@ -197,6 +214,9 @@ def rejection_sampling(x, e, b, count):
             h = ls[x]
             n[h] += 1
     return normalize(n)
+
+qe = get_query_evidence(bayNet)
+print rejection_sampling(qe['X'], qe['e'],bayNet,int(inputA))
 
 
 #Likelyhood-weighing
